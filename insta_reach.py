@@ -11,4 +11,10 @@ def insta_trend():
     fig = px.line(data, x='Date', y='Reach', title='Instagram Reach Trend')
     fig.show()
 
-insta_trend()
+def reach_based_on_day():
+    data['Day'] = data['Date'].dt.day_name()
+    df = data.groupby('Day')['Reach'].agg(['mean', 'median', 'std']).reset_index()
+    fig = px.bar(df, x='Day', y=['mean', 'median', 'std'], barmode='group')
+    fig.show()
+
+reach_based_on_day()
